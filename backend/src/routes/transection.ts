@@ -5,12 +5,19 @@ import { upload } from "../utils/upload";
 import dbModel from "../models/dbModel";
 
 //เอามาเพิ่ม user เฉย ๆ
-router.post("/user", async (req:Request, res:Response): Promise<void> =>{
-    const newUser = req.body;
-    const result = await dbModel.addNewUser(String(newUser.username), String(newUser.password));
-    if(result.length > 0){
-        res.json({ status: "ok", message: 'success to add new Users', data: newUser });
-    }
+router.post("/user", async (req: Request, res: Response): Promise<void> => {
+  const newUser = req.body;
+  const result = await dbModel.addNewUser(
+    String(newUser.username),
+    String(newUser.password)
+  );
+  if (result.length > 0) {
+    res.json({
+      status: "ok",
+      message: "success to add new Users",
+      data: newUser,
+    });
+  }
 });
 
 // POST /action => เพิ่มธุรกรรมใหม่
@@ -40,8 +47,26 @@ router.post("/action", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/users/:userId", async (req: Request, res: Response) => {
+    const user_id = Number(req.params.userId);
 
+    // ตรวจสอบความถูกต้องของ userId
+    if (!Number.isInteger(user_id) || user_id <= 0) {
+      return res.status(400).json({ error: "Invalid userId" });
+    }
 
-
+    try {
+      const transactions = await dbModel.getTransactionByUser(user_id);
+      return res.status(200).json({
+        user_id,
+        count: transactions.length,
+        data: transactions,
+      });
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
 
 export default router;
