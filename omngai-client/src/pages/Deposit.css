@@ -1,0 +1,89 @@
+/* omngai-client/src/pages/Deposit.css */
+.deposit-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background-color: #f4f7f6;
+  min-height: 80vh;
+}
+
+.deposit-form {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 24px 32px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.deposit-form h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.deposit-form p {
+  text-align: center;
+  color: #7f8c8d;
+  margin-bottom: 24px;
+}
+
+.deposit-form label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #34495e;
+}
+
+.deposit-form input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  box-sizing: border-box; /* สำคัญมาก */
+  font-size: 16px;
+}
+
+.deposit-form button {
+  background-color: #27ae60; /* สีเขียวสำหรับ "ฝาก" */
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.deposit-form button:hover {
+  background-color: #2ecc71;
+}
+
+.deposit-form button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #e74c3c;
+  background-color: #fbeaea;
+  border: 1px solid #e74c3c;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center !important; /* จัดกลาง */
+}
+
+.back-link {
+  text-align: center;
+  margin-top: 16px;
+  color: #3498db;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}

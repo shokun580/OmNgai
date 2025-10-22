@@ -3,6 +3,8 @@ import Nav from "./Components/Nav";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Account from "./pages/Account";
+import Deposit from "./pages/Deposit";
+import Withdraw from "./pages/Withdraw";
 
 function App() {
   const location = useLocation();
@@ -15,6 +17,9 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Account" element={<Account />} />
+        <Route path="/Deposit" element={<Deposit />} />
+        <Route path="/Withdraw" element={<Withdraw />} />
+
       </Routes>
     </div>
   );
