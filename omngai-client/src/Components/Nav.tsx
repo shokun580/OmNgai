@@ -1,4 +1,5 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { HiOutlineArrowDownCircle, HiOutlineArrowUpCircle } from "react-icons/hi2";
 import { useState } from "react";
 import axios from "axios";
 import "./Nav.css";
@@ -31,7 +32,7 @@ export default function Nav() {
         <nav className="navbar">
           <div className="nav-left">
             <img src={Logo} alt="OmnGai" className="nav-logo" />
-            <h2 className="nav-title">OmnGai</h2>
+            <h2 className="nav-title">OmNgai</h2>
           </div>
 
           <ul className="nav-links">
@@ -93,16 +94,12 @@ export default function Nav() {
         </Link>
 
         <Link to="/deposit" className={`bottom-item ${isActive("/deposit") ? "active" : ""}`}>
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <path d="M12 5v14m-7-7h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
+          <HiOutlineArrowDownCircle size={26} />
           <span>Deposit</span>
         </Link>
 
         <Link to="/withdraw" className={`bottom-item ${isActive("/withdraw") ? "active" : ""}`}>
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <path d="M12 19V5m-7 7h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
+          <HiOutlineArrowUpCircle size={26} />
           <span>Withdraw</span>
         </Link>
       </nav>
