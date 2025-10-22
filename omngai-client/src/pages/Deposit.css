@@ -1,274 +1,261 @@
+/* ===== Deposit.css (Blue theme, scoped) ===== */
 :root {
-    --bg: #f3f4f6;
-    --card: #ffffff;
-    --text: #0f172a;
+    --blue-500: #0ea5e9;
+    --blue-600: #0284c7;
+    --blue-700: #0369a1;
+    --ink: #0c4a6e;
     --muted: #64748b;
-    --line: #e2e8f0;
-    --brand: #2563eb;
-    --brand2: #3b82f6;
-    --shadow: 0 12px 28px rgba(2, 6, 23, 0.1);
-    --inset: inset 0 0 0 1px var(--line);
+    --border: #e2e8f0;
+    --bg: #f8fafc;
+    --card: #ffffff;
 }
 
-/* 🔒 ปิดการ scroll ทั้งหน้า */
 html,
 body {
-    height: 100%;
-    overflow: hidden;
     margin: 0;
     padding: 0;
-    background: var(--bg);
-    font-family: Inter, "SF Pro Text", "Kanit", system-ui, -apple-system, Segoe UI,
-        Roboto, Arial, sans-serif;
+    background:
+        radial-gradient(1000px 200px at 50% -40px, rgba(14, 165, 233, .15), transparent 70%),
+        linear-gradient(180deg, #f8fbff 0%, #ffffff 60%);
+    font-family: "Inter", "Kanit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-/* ให้ container เต็มจอและไม่ขยับ */
+/* container */
 .deposit-container {
     min-height: 100vh;
-    height: 100vh;
+    padding: 1.5rem 1rem 90px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
-    background: var(--bg);
-    overflow: hidden;
-    padding: 1.5rem 1rem;
-    box-sizing: border-box;
+    background:
+        radial-gradient(900px 180px at 50% -40px, rgba(14, 165, 233, .12), transparent 70%),
+        linear-gradient(180deg, #f8fbff 0%, #ffffff 80%);
 }
 
-/* ปรับกล่องให้อยู่ตรงกลางจอเสมอ */
-.deposit-card {
-    width: 100%;
-    max-width: 460px;
-    background: var(--card);
-    border-radius: 28px;
-    padding: 24px 20px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--line);
-    animation: fadeIn 0.35s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* Top bar */
-.dep-top {
+/* card */
+.deposit-container .deposit-card {
     width: 100%;
     max-width: 480px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 26px 22px;
+    box-shadow: 0 10px 28px rgba(14, 165, 233, .12);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    transition: transform .25s, box-shadow .25s;
+}
+
+.deposit-container .deposit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(14, 165, 233, .18);
+}
+
+/* header */
+.deposit-container .dep-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 14px;
 }
 
-.dep-title {
-    margin-bottom: 15px;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--text);
+.deposit-container .dep-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--ink);
 }
 
-.icon-btn {
+/* icon button */
+.deposit-container .icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: #f1f5f9;
+    border: 1px solid var(--border);
+    color: var(--ink);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
-    background: #f1f5f9;
-    border: 1px solid var(--line);
-    color: #0f172a;
-    cursor: pointer;
-    transition: transform 0.15s ease, background 0.2s ease;
+    transition: all .2s;
 }
 
-.icon-btn:hover {
-    background: #e2e8f0;
+.deposit-container .icon-btn:hover {
+    background: #e0f2fe;
+    color: var(--blue-700);
     transform: translateY(-1px);
 }
 
-.chip-pill {
-    padding: 0.45rem 0.7rem;
+/* chip */
+.deposit-container .chip-pill {
+    padding: .4rem .7rem;
     border-radius: 999px;
-    background: linear-gradient(135deg, #e2e8f0, #f8fafc);
-    border: 1px solid var(--line);
-    color: #0f172a;
-    font-weight: 600;
-    font-size: 0.85rem;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+    background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+    border: 1px solid #bae6fd;
+    color: #075985;
+    font-weight: 700;
+    font-size: .85rem;
+    box-shadow: 0 2px 6px rgba(14, 165, 233, .15);
 }
 
-/* Form */
-.dep-form {
+/* form */
+.deposit-container .dep-form {
     display: flex;
     flex-direction: column;
     gap: 18px;
 }
 
-.amount-block {
-    background: linear-gradient(180deg, #f8fafc, #ffffff);
-    border-radius: 20px;
+/* amount */
+.deposit-container .amount-block {
+    background: #fff;
+    border-radius: 22px;
     padding: 16px;
-    box-shadow: var(--inset);
+    box-shadow: inset 0 0 0 1px var(--border);
 }
 
-.row-head {
+.deposit-container .row-head {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: .9rem;
     margin-bottom: 8px;
 }
 
-.muted {
-    color: var(--muted);
-}
-
-.muted-right {
-    color: var(--muted);
-}
-
-.amount-input-wrap {
+.deposit-container .amount-input-wrap {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 12px;
-    border-radius: 16px;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 18px;
     background: #fff;
-    box-shadow: var(--inset), 0 1px 0 rgba(2, 6, 23, 0.02);
-    transition: box-shadow 0.25s ease, background 0.25s ease;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(14, 165, 233, .05);
+    transition: box-shadow .25s, border-color .25s;
 }
 
-.ccy {
-    font-weight: 700;
-    color: var(--brand);
-    font-size: 1.25rem;
+.deposit-container .amount-input-wrap:focus-within {
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, .15);
 }
 
-.amount-input {
+.deposit-container .ccy {
+    font-weight: 800;
+    color: var(--blue-600);
+    font-size: 1.4rem;
+}
+
+.deposit-container .amount-input {
     flex: 1;
     border: none;
     outline: none;
     background: transparent;
-    color: var(--text);
+    color: var(--ink);
     font-weight: 800;
-    font-size: 32px;
-    margin: 0;
-    letter-spacing: 0.2px;
+    font-size: 2rem;
+    letter-spacing: .3px;
 }
 
-.amount-input::placeholder {
+.deposit-container .amount-input::placeholder {
     color: #cbd5e1;
-    font-weight: 700;
+    font-weight: 600;
 }
 
-/* ฟ้าเหมือนช่อง note */
-.amount-input-wrap:focus-within {
-    box-shadow: inset 0 0 0 2px var(--brand2),
-        0 0 0 3px rgba(59, 130, 246, 0.15);
-    background: #fff;
-}
-
-.hint {
+.deposit-container .hint {
     margin-top: 6px;
     color: #94a3b8;
-    font-size: 0.85rem;
+    font-size: .85rem;
 }
 
-/* Note */
-.lbl {
+/* note */
+.deposit-container .lbl {
     font-weight: 700;
-    color: #334155;
+    color: var(--ink);
     margin-bottom: 6px;
 }
 
-.note-input {
+.deposit-container .note-input {
     width: 100%;
-    border: none;
-    outline: none;
+    min-height: 84px;
     resize: vertical;
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 12px 14px;
-    min-height: 84px;
     background: #f8fafc;
-    box-shadow: var(--inset);
-    color: var(--text);
+    color: var(--ink);
+    transition: all .25s;
 }
 
-.note-input:focus {
-    box-shadow: inset 0 0 0 2px var(--brand2),
-        0 0 0 3px rgba(59, 130, 246, 0.15);
+.deposit-container .note-input:focus {
+    border-color: #93c5fd;
     background: #fff;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, .15);
 }
 
-/* Buttons */
-.btn-primary {
+/* buttons */
+.deposit-container .btn-primary {
     width: 100%;
     border: none;
     cursor: pointer;
     color: #fff;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1rem;
     padding: 14px 16px;
     border-radius: 16px;
-    background: linear-gradient(135deg, var(--brand), var(--brand2));
-    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
-    transition: transform 0.18s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
+    box-shadow: 0 8px 18px rgba(14, 165, 233, .25);
+    transition: all .2s;
 }
 
-.btn-primary:hover {
+.deposit-container .btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.28);
+    box-shadow: 0 12px 28px rgba(14, 165, 233, .35);
 }
 
-.btn-primary:disabled {
-    opacity: 0.7;
+.deposit-container .btn-primary:disabled {
+    opacity: .7;
     cursor: not-allowed;
-    transform: none;
     box-shadow: none;
 }
 
-.btn-ghost {
+.deposit-container .btn-ghost {
     width: 100%;
-    color: #0f172a;
+    color: var(--ink);
     background: #f1f5f9;
-    border: 1px solid var(--line);
+    border: 1px solid var(--border);
     font-weight: 700;
     padding: 12px 16px;
     border-radius: 16px;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition: all .2s;
 }
 
-.btn-ghost:hover {
-    background: #e2e8f0;
+.deposit-container .btn-ghost:hover {
+    background: #e0f2fe;
     transform: translateY(-1px);
 }
 
-/* Messages */
-.message {
+/* messages */
+.deposit-container .message {
     text-align: center;
     font-weight: 700;
     padding: 12px;
     border-radius: 14px;
-    font-size: 0.95rem;
-    margin-top: 2px;
+    font-size: .95rem;
 }
 
-.success {
+.deposit-container .success {
     background: #ecfdf5;
     color: #065f46;
     border: 1px solid #99f6e4;
 }
 
-.error {
+.deposit-container .error {
     background: #fee2e2;
     color: #991b1b;
     border: 1px solid #fecaca;
 }
 
-/* Animations */
+/* animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -281,41 +268,40 @@ body {
     }
 }
 
-/* 📱 Responsive tweaks */
-@media (max-width: 768px) {
-    .deposit-card {
-        padding: 18px 16px;
+/* responsive */
+@media (max-width:768px) {
+    .deposit-container .deposit-card {
+        padding: 20px 18px;
         border-radius: 24px;
     }
 
-    .amount-input {
-        font-size: 28px;
+    .deposit-container .amount-input {
+        font-size: 1.8rem;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width:480px) {
     .deposit-container {
         padding: 1rem;
-        justify-content: flex-start;
     }
 
-    .deposit-card {
+    .deposit-container .deposit-card {
         border-radius: 22px;
         padding: 18px 14px;
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 6px 16px rgba(14, 165, 233, .1);
     }
 
-    .dep-title {
-        font-size: 18px;
+    .deposit-container .dep-title {
+        font-size: 1.1rem;
     }
 
-    .amount-input {
-        font-size: 24px;
+    .deposit-container .amount-input {
+        font-size: 1.5rem;
     }
 
-    .btn-primary,
-    .btn-ghost {
-        font-size: 0.95rem;
+    .deposit-container .btn-primary,
+    .deposit-container .btn-ghost {
+        font-size: .95rem;
         padding: 12px;
         border-radius: 14px;
     }

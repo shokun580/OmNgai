@@ -1,197 +1,224 @@
-.withdraw-container {
-    /* 🎨 Theme เฉพาะ Withdraw */
-    --bg: #f3f4f6;
-    --card: #ffffff;
-    --text: #0f172a;
+/* ===== Theme Variables ===== */
+:root {
+    --red-500: #ef4444;
+    --red-600: #dc2626;
+    --red-700: #b91c1c;
     --muted: #64748b;
-    --line: #e2e8f0;
-    --brand: #dc2626;
-    --brand2: #ef4444;
-    --shadow: 0 12px 28px rgba(239, 68, 68, 0.12);
-    --inset: inset 0 0 0 1px var(--line);
-
-    min-height: 100vh;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background: var(--bg);
-    overflow: hidden;
-    padding: 1.5rem 1rem;
-    box-sizing: border-box;
+    --border: #e2e8f0;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --shadow: 0 10px 28px rgba(239, 68, 68, 0.12);
 }
 
-/* card */
-.withdraw-container .withdraw-card {
+/* ===== Page Base ===== */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background:
+        radial-gradient(1000px 200px at 50% -40px, rgba(239, 68, 68, .1), transparent 70%),
+        linear-gradient(180deg, #fef2f2 0%, #ffffff 60%);
+    font-family: "Inter", "Kanit", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #1e293b;
+}
+
+/* ===== Container ===== */
+.withdraw-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem 90px;
+    background:
+        radial-gradient(900px 180px at 50% -40px, rgba(239, 68, 68, .12), transparent 70%),
+        linear-gradient(180deg, #fef2f2 0%, #ffffff 80%);
+}
+
+/* ===== Card ===== */
+.withdraw-card {
     width: 100%;
-    max-width: 460px;
+    max-width: 480px;
     background: var(--card);
     border-radius: 28px;
-    padding: 24px 20px;
+    border: 1px solid var(--border);
+    padding: 26px 22px;
     box-shadow: var(--shadow);
-    border: 1px solid var(--line);
-    animation: fadeIn 0.35s ease;
+    animation: fadeIn .35s ease;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 18px;
+    backdrop-filter: blur(8px);
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
-/* form */
-.withdraw-container .withdraw-form {
+.withdraw-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(239, 68, 68, .2);
+}
+
+/* ===== Header ===== */
+.wd-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #7c1111;
+    text-align: start;
+    margin-bottom: .25rem;
+}
+
+/* ===== Form ===== */
+.withdraw-form {
     display: flex;
     flex-direction: column;
     gap: 18px;
 }
 
-.withdraw-container .amount-block {
-    background: linear-gradient(180deg, #f8fafc, #ffffff);
-    border-radius: 20px;
+/* --- Amount Field --- */
+.amount-block {
+    background: #fff;
+    border-radius: 22px;
     padding: 16px;
-    box-shadow: var(--inset);
+    box-shadow: inset 0 0 0 1px var(--border);
 }
 
-.withdraw-container .wd-title {
-    font-weight: 700;
-    color: var(--brand2);
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
-    text-align: center;
-}
-
-.withdraw-container .row-head {
+.row-head {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: .9rem;
     margin-bottom: 8px;
 }
 
-.withdraw-container .amount-input-wrap {
+.amount-input-wrap {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 12px;
-    border-radius: 16px;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 18px;
     background: #fff;
-    box-shadow: var(--inset), 0 1px 0 rgba(2, 6, 23, 0.02);
-    transition: box-shadow 0.25s ease, background 0.25s ease;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, .05);
+    transition: box-shadow .25s ease, border-color .25s ease;
 }
 
-.withdraw-container .amount-input-wrap:focus-within {
-    box-shadow: inset 0 0 0 2px var(--brand2),
-        0 0 0 3px rgba(239, 68, 68, 0.15);
-    background: #fff;
+.amount-input-wrap:focus-within {
+    border-color: #fca5a5;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, .15);
 }
 
-.withdraw-container .ccy {
-    font-weight: 700;
-    color: var(--brand);
-    font-size: 1.25rem;
+.ccy {
+    font-weight: 800;
+    color: var(--red-600);
+    font-size: 1.4rem;
 }
 
-.withdraw-container .amount-input {
+.amount-input {
     flex: 1;
     border: none;
     outline: none;
     background: transparent;
-    color: var(--text);
+    color: #0f172a;
     font-weight: 800;
-    font-size: 32px;
+    font-size: 2rem;
+    letter-spacing: .3px;
 }
 
-.withdraw-container .amount-input::placeholder {
-    color: #fca5a5;
-    font-weight: 700;
+.amount-input::placeholder {
+    color: #fecaca;
+    font-weight: 600;
 }
 
-/* note */
-.withdraw-container .lbl {
+/* --- Note --- */
+.lbl {
     font-weight: 700;
-    color: #334155;
+    color: #0f172a;
     margin-bottom: 6px;
 }
 
-.withdraw-container .note-input {
+.note-input {
     width: 100%;
     border: none;
     outline: none;
     resize: vertical;
-    border-radius: 16px;
-    padding: 12px 14px;
     min-height: 84px;
-    background: #f8fafc;
-    box-shadow: var(--inset);
-    color: var(--text);
+    padding: 12px 14px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    transition: all .25s ease;
+    color: #0f172a;
 }
 
-.withdraw-container .note-input:focus {
-    box-shadow: inset 0 0 0 2px var(--brand2),
-        0 0 0 3px rgba(239, 68, 68, 0.15);
+.note-input:focus {
+    border-color: #fca5a5;
     background: #fff;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, .15);
 }
 
-/* buttons */
-.withdraw-container .btn-primary {
+/* ===== Buttons ===== */
+.btn-primary {
     width: 100%;
     border: none;
     cursor: pointer;
     color: #fff;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1rem;
     padding: 14px 16px;
     border-radius: 16px;
-    background: linear-gradient(135deg, var(--brand), var(--brand2));
-    box-shadow: 0 8px 18px rgba(239, 68, 68, 0.22);
-    transition: transform 0.18s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    background: linear-gradient(135deg, var(--red-600), var(--red-700));
+    box-shadow: 0 8px 18px rgba(239, 68, 68, .25);
+    transition: all .2s ease;
 }
 
-.withdraw-container .btn-primary:hover {
+.btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 12px 24px rgba(239, 68, 68, 0.28);
+    box-shadow: 0 12px 28px rgba(239, 68, 68, .35);
 }
 
-.withdraw-container .btn-ghost {
+.btn-primary:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-ghost {
     width: 100%;
     color: #0f172a;
     background: #f1f5f9;
-    border: 1px solid var(--line);
+    border: 1px solid var(--border);
     font-weight: 700;
     padding: 12px 16px;
     border-radius: 16px;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition: all .2s ease;
 }
 
-.withdraw-container .btn-ghost:hover {
-    background: #e2e8f0;
+.btn-ghost:hover {
+    background: #fee2e2;
     transform: translateY(-1px);
 }
 
-/* message */
-.withdraw-container .message {
+/* ===== Message Alerts ===== */
+.message {
     text-align: center;
     font-weight: 700;
     padding: 12px;
     border-radius: 14px;
     font-size: 0.95rem;
-    margin-top: 2px;
 }
 
-.withdraw-container .success {
+.success {
     background: #ecfdf5;
     color: #065f46;
     border: 1px solid #99f6e4;
 }
 
-.withdraw-container .error {
+.error {
     background: #fee2e2;
     color: #991b1b;
     border: 1px solid #fecaca;
 }
 
-/* animation */
+/* ===== Animation ===== */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -204,37 +231,40 @@
     }
 }
 
-/* responsive */
-@media (max-width: 768px) {
-    .withdraw-container .withdraw-card {
-        padding: 18px 16px;
+/* ===== Responsive ===== */
+@media (max-width:768px) {
+    .withdraw-card {
+        padding: 20px 18px;
         border-radius: 24px;
     }
 
-    .withdraw-container .amount-input {
-        font-size: 28px;
+    .amount-input {
+        font-size: 1.8rem;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width:480px) {
     .withdraw-container {
         padding: 1rem;
-        justify-content: flex-start;
     }
 
-    .withdraw-container .withdraw-card {
+    .withdraw-card {
         border-radius: 22px;
         padding: 18px 14px;
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, .1);
     }
 
-    .withdraw-container .amount-input {
-        font-size: 24px;
+    .wd-title {
+        font-size: 1.2rem;
     }
 
-    .withdraw-container .btn-primary,
-    .withdraw-container .btn-ghost {
-        font-size: 0.95rem;
+    .amount-input {
+        font-size: 1.5rem;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+        font-size: .95rem;
         padding: 12px;
         border-radius: 14px;
     }

@@ -63,7 +63,7 @@ export default function Withdraw() {
             <section className="withdraw-card">
                 <form onSubmit={handleSubmit} className="withdraw-form">
                     <div className="amount-block">
-                        <h1 className="dep-title">Withdraw</h1>
+                        <h1 className="wd-title">Withdraw</h1>
                         <div className="row-head">
                             <span className="muted">To</span>
                             <span className="muted-right">THB</span>

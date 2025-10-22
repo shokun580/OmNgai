@@ -1,20 +1,187 @@
-.home {
+/* ใช้ธีมเดียวกับหน้าอื่น: ขาว-ฟ้า + กลาส */
+:root {
+  --blue-500: #0ea5e9;
+  --blue-700: #0369a1;
+  --ink: #0c4a6e;
+  --muted: #64748b;
+  --card: #ffffff;
+  --border: #e2e8f0;
+}
+
+/* กันโดน bottom-nav ทับบนมือถือ */
+@media (max-width:600px) {
+  .home-page {
+    padding-bottom: 72px;
+  }
+}
+
+/* layout */
+.home-page {
+  min-height: 100vh;
+  padding: 24px 16px 32px;
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background:
+    radial-gradient(1000px 200px at 50% -40px, rgba(14, 165, 233, .18), transparent 70%),
+    linear-gradient(180deg, #f8fbff 0%, #ffffff 60%);
+}
+
+/* hero */
+.home-hero {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(14, 165, 233, .12);
+  color: var(--blue-700);
+  border: 1px solid rgba(14, 165, 233, .25);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+
+.hero-title {
+  margin: 10px 0 4px;
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.hero-sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+/* card */
+.home-card {
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 10px 40px rgba(14, 165, 233, .08);
+}
+
+.home-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 4px 14px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.card-title {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.id-badge {
+  background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
+  color: #0f172a;
+  border: 1px solid #bfdbfe;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: .95rem;
+}
+
+/* quick actions */
+.home-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+  .home-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quick {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 6px 18px rgba(2, 132, 199, .06);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  color: var(--ink);
+}
+
+.quick:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(2, 132, 199, .10);
+  border-color: #bfdbfe;
+}
+
+.quick-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
   justify-content: center;
- 
+  font-size: 1.2rem;
+  font-weight: 900;
 }
-.bg {
-  background-image: url(src/assets/bgHome.jpg);
-  background-size: cover;
-  background-position: center;
- min-height: 100vh;
+
+.quick-text {
+  display: flex;
+  flex-direction: column;
 }
-.info{
-    border-radius: 0.5rem;
-   background-color: #eef7f1;
-    border: 0.1rem black solid;
-    padding: 2.5rem;
+
+.quick-text strong {
+  font-size: 1rem;
 }
-p{
-    font-size: 1rem;
+
+.quick-text .muted {
+  font-size: .9rem;
+}
+
+/* สีตามประเภท */
+.quick-primary .quick-icon {
+  background: #e0f2fe;
+  color: #075985;
+  border: 1px solid #bae6fd;
+}
+
+.quick-success .quick-icon {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.quick-danger .quick-icon {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* tip */
+.tip {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: .95rem;
+  border: 1px dashed #cbd5e1;
 }
