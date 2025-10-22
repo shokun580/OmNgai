@@ -1,57 +1,111 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 import "./Nav.css";
 import Logo from "../assets/Logo.png";
 
-function Nav() {
-  return (
-    <main>
-      <div className=" bg-gray-200 ">
-        <nav>
-          <ul className="nav gap-2 p-2 py-1 form-control-lg">
-            <li className="nav-item ">
-              <img src={Logo} alt="OmnGai" className="logo"></img>
-            </li>
-            <li className="nav-item centerNav gap-4 ms-5">
-              <Link to="/Home" className=" text-decoration-none text-black">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item centerNav ms-5">
-              <Link to="/Account" className=" text-decoration-none text-black">
-                Account
-              </Link>
-            </li>
+export default function Nav() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+  const [menuOpen, setMenuOpen] = useState(false);
 
-            <li className="nav-item centerNav ms-auto px-3 ">
-              <Link
-                to="/"
-                className="d-flex flex-row centerNav gap-2 text-decoration-none text-black"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  fill="black"
-                  className="bi bi-box-arrow-in-right"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-                  />
-                </svg>
-                Logout
-              </Link>
-            </li>
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user_id");
+      navigate("/");
+    }
+  };
+
+  const isActive = (path: string) => location.pathname === path;
+
+  return (
+    <>
+      {/* ===== Top Navbar ===== */}
+      <header className="navbar-container">
+        <nav className="navbar">
+          <div className="nav-left">
+            <img src={Logo} alt="OmnGai" className="nav-logo" />
+            <h2 className="nav-title">OmnGai</h2>
+          </div>
+
+          <ul className="nav-links">
+            <li><Link to="/home" className="nav-link">Home</Link></li>
+            <li><Link to="/account" className="nav-link">Account</Link></li>
+            <li><Link to="/deposit" className="nav-link">Deposit</Link></li>
+            <li><Link to="/withdraw" className="nav-link">Withdraw</Link></li>
           </ul>
+
+          <div className="nav-right">
+            <button className="logout-btn" onClick={handleLogout}>Logout</button>
+          </div>
+
+          {/* Hamburger for mobile */}
+          <button className="mobile-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+            {!menuOpen ? (
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg width="28" height="28" viewBox="0 0 24 24">
+                <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M6 6l12 12M6 18L18 6" />
+              </svg>
+            )}
+          </button>
         </nav>
+      </header>
+
+      {/* ===== Side Drawer ===== */}
+      <div className={`side-menu ${menuOpen ? "open" : ""}`}>
+        <div className="side-top">
+          <div className="side-header">
+            <img src={Logo} alt="OmnGai" className="side-logo" />
+            <h2>OmnGai</h2>
+          </div>
+
+          <div className="side-links">
+            <Link to="/home" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link to="/account" onClick={() => setMenuOpen(false)}>Account</Link>
+            <Link to="/deposit" onClick={() => setMenuOpen(false)}>Deposit</Link>
+            <Link to="/withdraw" onClick={() => setMenuOpen(false)}>Withdraw</Link>
+          </div>
+        </div>
+
+        <div className="side-bottom">
+          <button className="side-logout" onClick={handleLogout}>🚪 Logout</button>
+        </div>
       </div>
-    </main>
+
+      {menuOpen && <div className="side-overlay" onClick={() => setMenuOpen(false)} />}
+
+      {/* ===== Bottom Navigation (Mobile Only) ===== */}
+      <nav className="bottom-nav">
+        <Link to="/account" className={`bottom-item ${isActive("/account") ? "active" : ""}`}>
+          <svg width="24" height="24" viewBox="0 0 24 24">
+            <path d="M3 7l9 4 9-4-9-4-9 4zm0 10l9 4 9-4" stroke="currentColor" strokeWidth="2" fill="none" />
+          </svg>
+          <span>Account</span>
+        </Link>
+
+        <Link to="/deposit" className={`bottom-item ${isActive("/deposit") ? "active" : ""}`}>
+          <svg width="24" height="24" viewBox="0 0 24 24">
+            <path d="M12 5v14m-7-7h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+          <span>Deposit</span>
+        </Link>
+
+        <Link to="/withdraw" className={`bottom-item ${isActive("/withdraw") ? "active" : ""}`}>
+          <svg width="24" height="24" viewBox="0 0 24 24">
+            <path d="M12 19V5m-7 7h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+          <span>Withdraw</span>
+        </Link>
+      </nav>
+    </>
   );
 }
-
-export default Nav;

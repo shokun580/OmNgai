@@ -88,7 +88,7 @@ router.get("/Home/:userId", async (req: Request<UserParams>, res: Response) => {
   }
 });
 
-router.get("/users/:userId", async (req: Request, res: Response) => {
+router.get("/transactions/:userId", async (req: Request, res: Response) => {
     const user_id = Number(req.params.userId);
 
     // ตรวจสอบความถูกต้องของ userId

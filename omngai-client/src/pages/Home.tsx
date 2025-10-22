@@ -1,14 +1,26 @@
 import { useEffect, useState } from "react";
-import "./Home.css";
-interface Account {
-  ac_id: number;
-  ac_no: string;
-  ac_balance: number;
-  ac_us_id: number;
-}
+import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const userId = localStorage.getItem("user_id");
+  interface Account {
+    ac_id: number;
+    ac_no: string;
+    ac_balance: number;
+    ac_us_id: number;
+  }
+  const navigate = useNavigate();
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const uid = localStorage.getItem("user_id");
+
+    if (!token) {
+      navigate("/"); // ไม่มี token → กลับหน้า login
+    } else {
+      setUserId(uid);
+    }
+  }, [navigate]);
   console.log(userId);
   const [accounts, setAccounts] = useState<Account[]>([]);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
@@ -32,41 +44,42 @@ function Home() {
 
   return (
     <main className="bg">
-    <div className="p-4">
-      <div className="">
- 
-        <div className="d-flex justify-content-center align-item-center">
+      <div className="p-4">
+        <div className="">
+          <div className="d-flex justify-content-center align-item-center">
             <div className="col-6 border border-black p-3">
-                <h1 className="fs-1 fw-bold  text-uppercase head text-center">Welcome To OmnGai</h1>
+              <h1 className="fs-1 fw-bold  text-uppercase head text-center">
+                Welcome To OmnGai
+              </h1>
             </div>
+          </div>
         </div>
-      </div>
 
-      {accounts.length === 0 ? (
-        <p>No accounts found !!!</p>
-      ) : (
-        <table className="table-auto border-collapse border border-gray-400 w-full">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border px-4 py-2">ID</th>
-              <th className="border px-4 py-2">Name</th>
-              <th className="border px-4 py-2">Balance</th>
-              <th className="border px-4 py-2">UserId</th>
-            </tr>
-          </thead>
-          <tbody>
-            {accounts.map((acc) => (
-              <tr key={acc.ac_id}>
-                <td className="border px-4 py-2">{acc.ac_id}</td>
-                <td className="border px-4 py-2">{acc.ac_no}</td>
-                <td className="border px-4 py-2">{acc.ac_balance}</td>
-                <td className="border px-4 py-2">{acc.ac_us_id}</td>
+        {accounts.length === 0 ? (
+          <p>No accounts found !!!</p>
+        ) : (
+          <table className="table-auto border-collapse border border-gray-400 w-full">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="border px-4 py-2">ID</th>
+                <th className="border px-4 py-2">Name</th>
+                <th className="border px-4 py-2">Balance</th>
+                <th className="border px-4 py-2">UserId</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+            </thead>
+            <tbody>
+              {accounts.map((acc) => (
+                <tr key={acc.ac_id}>
+                  <td className="border px-4 py-2">{acc.ac_id}</td>
+                  <td className="border px-4 py-2">{acc.ac_no}</td>
+                  <td className="border px-4 py-2">{acc.ac_balance}</td>
+                  <td className="border px-4 py-2">{acc.ac_us_id}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
     </main>
   );
 }
