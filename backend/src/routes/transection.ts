@@ -72,7 +72,7 @@ router.get("/Account", async (req: Request, res: Response) => {
 interface UserParams {
   userId: string;
 }
-router.get("/Home/:userId", async (req: Request<UserParams>, res: Response) => {
+router.get("/account/:userId", async (req: Request<UserParams>, res: Response) => {
   try {
     const userId = parseInt(req.params.userId, 10);
 

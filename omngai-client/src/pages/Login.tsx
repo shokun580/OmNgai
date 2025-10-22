@@ -65,7 +65,7 @@ function Login() {
           <h2 className="text-center mb-2">Welcome To OmnGai</h2>
 
           <form className="form-area p-4" onSubmit={handleLogin}>
-            <h5 className="text-center mb-3">เข้าสู่ระบบหน่อย</h5>
+            <h5 className="text-center mb-3 fs-3">เข้าสู่ระบบ</h5>
 
             <input
               type="text"
