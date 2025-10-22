@@ -60,7 +60,7 @@ router.post("/action", async (req: Request, res: Response) => {
   
 });
 
-router.get("/accounts", async (req: Request, res: Response) => {
+router.get("/Account", async (req: Request, res: Response) => {
   try {
     const accounts = await userDetail();
     res.json(accounts);
@@ -72,7 +72,7 @@ router.get("/accounts", async (req: Request, res: Response) => {
 interface UserParams {
   userId: string;
 }
-router.get("/accounts/:userId", async (req: Request<UserParams>, res: Response) => {
+router.get("/Home/:userId", async (req: Request<UserParams>, res: Response) => {
   try {
     const userId = parseInt(req.params.userId, 10);
 
@@ -80,8 +80,8 @@ router.get("/accounts/:userId", async (req: Request<UserParams>, res: Response) 
       return res.status(400).json({ error: "userId ต้องเป็นตัวเลข" });
     }
 
-    const accounts = await useridDetail(userId);
-    res.json(accounts);
+    const home = await useridDetail(userId);
+    res.json(home);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "ไม่สามารถดึงข้อมูลได้" });

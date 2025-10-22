@@ -13,7 +13,7 @@ function App() {
       {!hideNav && <Nav />}  {/* Nav จะแสดงทุกหน้า ยกเว้น Login */}
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/Home" element={<Home />} />
+        <Route path="/Home/" element={<Home />} />
         <Route path="/Account" element={<Account />} />
       </Routes>
     </div>

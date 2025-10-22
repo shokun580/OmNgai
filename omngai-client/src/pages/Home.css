@@ -1,0 +1,10 @@
+.bg {
+   background-image: url(/src/assets/Home_bg.jpg);
+  background-size: cover; /* ให้รูปเต็มจอ */
+  background-position: center; /* จัดให้อยู่กลาง */
+  height: 90vh;
+}
+
+.head {
+    font: size 64px;;
+}
