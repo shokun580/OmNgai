@@ -42,4 +42,22 @@ export async function updateBalance(acId: number, amount: number): Promise<Resul
   return result;
 }
 
-export default {  addNewUser ,getAccountsByUser ,addNewTransaction, updateBalance};
+//กำหนด Account
+export interface Account extends RowDataPacket {
+  ac_id: number;
+  ac_no: string;
+  ac_balance: number;
+  ac_us_id: number;
+}
+//ข้อมูล Account ทั้งหมด
+export async function userDetail(): Promise<Account[]> {
+  const [rows] = await db.query("SELECT *  FROM accounts");
+  return rows as Account[];
+}
+
+export async function useridDetail(userId : number): Promise<Account[]> {
+  const [rows] = await db.query("SELECT *  FROM accounts WHERE ac_us_id = ?", [userId]);
+  return rows as Account[];
+}
+
+export default {  addNewUser ,getAccountsByUser ,addNewTransaction, updateBalance , userDetail , useridDetail};
