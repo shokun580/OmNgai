@@ -1,22 +1,26 @@
-import "dotenv/config";
-import express, {type Express, type Request, type Response} from "express"
+import express from "express";
+import cors from "cors";
 
+const app = express();
+const POST = process.env.PORT || 3000;
+
+// ✅ เปิด CORS ให้ React เข้าถึงได้
+app.use(cors({
+  origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// ✅ import router ตามของเดิม
 import defaultRouter from "./src/routes/default";
-// import titleRouter from "./src/routes/titles";
-import userRouter from "./src/routes/transection";
+import transectionRouter from "./src/routes/transection";
 
+app.use(defaultRouter);
+app.use(transectionRouter);
 
-const app:Express = express();
-const post = process.env.POST || 3000;
-
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-
-app.use(defaultRouter)
-// app.use(titleRouter)
-app.use(userRouter)
-
-
-app.listen(post, ()=> {
-    console.log(`Server is running on post ${post}`)
-})
+app.listen(POST, () => {
+  console.log(`✅ Server is running on port ${POST}`);
+});

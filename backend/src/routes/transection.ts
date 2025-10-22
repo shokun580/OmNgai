@@ -20,6 +20,17 @@ router.post("/user", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
+router.post("/user1", async (req: Request, res: Response): Promise<void> => {
+  const newUser = req.body;
+  const result = await dbModel.addNewUser1();
+  if (result.length > 0) {
+    res.json({
+      status: "ok",
+      message: "success to add new Users",
+      data: newUser,
+    });
+  }
+});
 // POST /action => เพิ่มธุรกรรมใหม่
 router.post("/action", async (req: Request, res: Response) => {
   const { user_id, amount, note } = req.body;

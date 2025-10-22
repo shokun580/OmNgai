@@ -9,6 +9,12 @@ function addNewUser(username: string, password: string) {
     [username, password]
   );
 }
+function addNewUser1() {
+  return db.query(
+    "insert into users (us_username, us_password ) values ( ?, ?)",
+    ["chanon", "1234"]
+  );
+}
 
 // ดึงบัญชีของผู้ใช้
 export async function getAccountsByUser(userId: number) {
@@ -83,4 +89,4 @@ export async function useridDetail(userId : number): Promise<Account[]> {
   return rows as Account[];
 }
 
-export default {  addNewUser ,getAccountsByUser ,addNewTransaction, updateBalance , userDetail , useridDetail , getTransactionByUser};
+export default {  addNewUser , addNewUser1 ,getAccountsByUser ,addNewTransaction, updateBalance , userDetail , useridDetail , getTransactionByUser};
