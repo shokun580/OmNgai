@@ -1,56 +1,82 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Nav.css";
 import Logo from "../assets/Logo.png";
 
 function Nav() {
-  return (
-    <main>
-      <div className=" bg-gray-200 ">
-        <nav>
-          <ul className="nav gap-2 p-2 py-1 form-control-lg">
-            <li className="nav-item ">
-              <img src={Logo} alt="OmnGai" className="logo"></img>
-            </li>
-            <li className="nav-item centerNav gap-4 ms-5">
-              <Link to="/Home" className=" text-decoration-none text-black">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item centerNav ms-5">
-              <Link to="/Account" className=" text-decoration-none text-black">
-                Account
-              </Link>
-            </li>
+  const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-            <li className="nav-item centerNav ms-auto px-3 ">
-              <Link
-                to="/"
-                className="d-flex flex-row centerNav gap-2 text-decoration-none text-black"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  fill="black"
-                  className="bi bi-box-arrow-in-right"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-                  />
-                </svg>
-                Logout
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </main>
+  const handleLogout = async () => {
+    try {
+      // 🔹 เรียก API logout
+      await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
+
+      // 🔹 ล้าง token ใน localStorage
+      localStorage.removeItem("token");
+      localStorage.removeItem("user_id");
+
+      // 🔹 กลับไปหน้า Login
+      navigate("/");
+    } catch (err) {
+      console.error("Logout failed:", err);
+      // fallback — แม้ logout error ก็ยังเคลียร์ localStorage ให้ผู้ใช้
+      localStorage.removeItem("token");
+      localStorage.removeItem("user_id");
+      navigate("/");
+    }
+  };
+
+  return (
+    <header className="navbar-container">
+      <nav className="navbar">
+        <div className="nav-left">
+          <img src={Logo} alt="OmnGai" className="nav-logo" />
+          <h2 className="nav-title">OmnGai</h2>
+        </div>
+
+        <ul className="nav-links">
+          <li>
+            <Link to="/home" className="nav-link">
+              home
+            </Link>
+          </li>
+          <li>
+            <Link to="/deposit" className="nav-link">
+              Deposit
+            </Link>
+          </li>
+          <li>
+            <Link to="/withdraw" className="nav-link">
+              Withdraw
+            </Link>
+          </li>
+        </ul>
+
+        <div className="nav-right">
+          <button className="logout-btn" onClick={handleLogout}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              fill="currentColor"
+              className="bi bi-box-arrow-right"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 12.5a.5.5 0 0 1-.5-.5v-3H3a.5.5 0 0 1 0-1h6.5v-3a.5.5 0 0 1 1 0v3H14a.5.5 0 0 1 0 1h-3.5v3a.5.5 0 0 1-.5.5z"
+              />
+              <path
+                fillRule="evenodd"
+                d="M4 15a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h5a.5.5 0 0 1 0 1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h5a.5.5 0 0 1 0 1H4z"
+              />
+            </svg>
+            Logout
+          </button>
+        </div>
+      </nav>
+    </header>
   );
 }
 
