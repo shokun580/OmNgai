@@ -49,7 +49,7 @@ router.post("/action", async (req: Request, res: Response) => {
   
 });
 
-router.get("/accounts", async (req: Request, res: Response) => {
+router.get("/Accounts", async (req: Request, res: Response) => {
   try {
     const accounts = await userDetail();
     res.json(accounts);
