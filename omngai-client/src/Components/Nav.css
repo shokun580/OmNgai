@@ -1,0 +1,15 @@
+nav {
+    background-color: rgb(207, 236, 255);
+    border-radius: 10px;
+    gap: 300px;
+}
+.logo {
+    width:100px ;
+    height: 100px;
+}
+.centerNav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}

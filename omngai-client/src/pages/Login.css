@@ -1,0 +1,76 @@
+main {
+  font-family: "Roboto", sans-serif;
+}
+
+/* กล่องหลัก */
+.login-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-image: url("/src/assets/LoginBg.jpg"); 
+  background-size: cover; /* ให้รูปเต็มจอ */
+  background-position: center; /* จัดให้อยู่กลาง */
+
+}
+
+
+/* กล่อง login */
+.box {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid black;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ปรับขนาด input ให้เต็มและดูดี */
+.form-control {
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+/* ปุ่ม login */
+button.btn {
+  font-weight: bold;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+
+/* 🔹 Responsive: สำหรับหน้าจอเล็ก */
+@media (max-width: 576px) {
+  .box {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  input {
+    font-size: 0.9rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+}
+
+/* 🔹 Responsive: สำหรับจอใหญ่ขึ้น */
+@media (min-width: 768px) {
+  .box {
+    max-width: 450px;
+  }
+}
+
+/* 🔹 Responsive: สำหรับ desktop */
+@media (min-width: 1024px) {
+  .box {
+    height: 50vh;
+    max-width: 500px;
+  }
+}
