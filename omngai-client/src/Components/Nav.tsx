@@ -7,7 +7,7 @@ function Nav() {
     <main>
       <div className=" bg-gray-200 ">
         <nav>
-          <ul className="nav gap-2 p-2 py-1 form-control-lg">
+          <ul className="nav gap-2 p-2 py-1  form-control-lg">
             <li className="nav-item ">
               <img src={Logo} alt="OmnGai" className="logo"></img>
             </li>
@@ -17,7 +17,7 @@ function Nav() {
               </Link>
             </li>
             <li className="nav-item centerNav ms-5">
-              <Link to="/Account" className=" text-decoration-none text-black">
+              <Link to="/Accounts" className=" text-decoration-none text-black">
                 Account
               </Link>
             </li>
