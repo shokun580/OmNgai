@@ -37,7 +37,7 @@ export default function Withdraw() {
             return;
         }
 
-        const amt = -Math.abs(Number(amount)); // แปลงเป็นค่าลบ
+        const amt = -Math.abs(Number(amount));
         if (!amt || amt >= 0) {
             setMsg({ type: "err", text: "กรุณากรอกจำนวนเงินที่มากกว่า 0" });
             return;
@@ -51,8 +51,7 @@ export default function Withdraw() {
             setNote("");
             setTimeout(() => navigate("/account"), 800);
         } catch (err: any) {
-            const text =
-                err.response?.data?.error || err.response?.data?.message || err.message;
+            const text = err.response?.data?.error || err.response?.data?.message || err.message;
             setMsg({ type: "err", text: text || "เกิดข้อผิดพลาด" });
         } finally {
             setLoading(false);
@@ -61,23 +60,33 @@ export default function Withdraw() {
 
     return (
         <main className="withdraw-container">
-            <div className="withdraw-box">
-                <h1>💸 ถอนเงิน</h1>
-                <p className="desc">กรอกจำนวนเงินที่ต้องการถอนจากบัญชี</p>
+            <section className="withdraw-card">
+                <form onSubmit={handleSubmit} className="withdraw-form">
+                    <div className="amount-block">
+                        <h1 className="dep-title">Withdraw</h1>
+                        <div className="row-head">
+                            <span className="muted">To</span>
+                            <span className="muted-right">THB</span>
+                        </div>
 
-                <form onSubmit={handleSubmit}>
-                    <label>จำนวนเงิน</label>
-                    <input
-                        type="number"
-                        placeholder="เช่น 500 (ระบบจะส่ง -500)"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        required
-                    />
+                        <div className="amount-input-wrap">
+                            <span className="ccy">฿</span>
+                            <input
+                                className="amount-input"
+                                type="number"
+                                inputMode="decimal"
+                                placeholder="0.00"
+                                value={amount}
+                                onChange={(e) => setAmount(e.target.value)}
+                                required
+                            />
+                        </div>
+                    </div>
 
-                    <label>หมายเหตุ (ถ้ามี)</label>
+                    <label className="lbl">Note (optional)</label>
                     <textarea
-                        placeholder="เช่น ถอนเพื่อใช้จ่ายส่วนตัว"
+                        className="note-input"
+                        placeholder="Note (optional)"
                         value={note}
                         onChange={(e) => setNote(e.target.value)}
                     ></textarea>
@@ -88,18 +97,11 @@ export default function Withdraw() {
                         </p>
                     )}
 
-                    <button type="submit" disabled={loading} className="btn-withdraw">
-                        {loading ? "กำลังถอน..." : "ยืนยันถอนเงิน"}
-                    </button>
-                    <button
-                        type="button"
-                        className="btn-back"
-                        onClick={() => navigate("/account")}
-                    >
-                        กลับหน้าบัญชี
+                    <button type="submit" disabled={loading} className="btn-primary">
+                        {loading ? "Processing..." : "Confirm withdraw"}
                     </button>
                 </form>
-            </div>
+            </section>
         </main>
     );
 }

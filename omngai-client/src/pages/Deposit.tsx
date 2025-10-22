@@ -51,8 +51,7 @@ export default function Deposit() {
             setNote("");
             setTimeout(() => navigate("/account"), 800);
         } catch (err: any) {
-            const text =
-                err.response?.data?.error || err.response?.data?.message || err.message;
+            const text = err.response?.data?.error || err.response?.data?.message || err.message;
             setMsg({ type: "err", text: text || "เกิดข้อผิดพลาด" });
         } finally {
             setLoading(false);
@@ -61,23 +60,33 @@ export default function Deposit() {
 
     return (
         <main className="deposit-container">
-            <div className="deposit-box">
-                <h1>💰 ฝากเงิน</h1>
-                <p className="desc">กรอกจำนวนเงินที่ต้องการฝากเข้าระบบ OmnGai</p>
+            <section className="deposit-card">
+                <form onSubmit={handleSubmit} className="dep-form">
+                    <div className="amount-block">
+                        <h1 className="dep-title">Deposit</h1>
+                        <div className="row-head">
+                            <span className="muted">From</span>
+                            <span className="muted-right">THB</span>
+                        </div>
 
-                <form onSubmit={handleSubmit}>
-                    <label>จำนวนเงิน</label>
-                    <input
-                        type="number"
-                        placeholder="เช่น 500"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        required
-                    />
+                        <div className="amount-input-wrap">
+                            <span className="ccy">฿</span>
+                            <input
+                                className="amount-input"
+                                type="number"
+                                inputMode="decimal"
+                                placeholder="0.00"
+                                value={amount}
+                                onChange={(e) => setAmount(e.target.value)}
+                                required
+                            />
+                        </div>
+                    </div>
 
-                    <label>หมายเหตุ (ถ้ามี)</label>
+                    <label className="lbl">Note (optional)</label>
                     <textarea
-                        placeholder="เช่น ฝากประจำเดือนตุลา"
+                        className="note-input"
+                        placeholder="Note (optional)"
                         value={note}
                         onChange={(e) => setNote(e.target.value)}
                     ></textarea>
@@ -88,18 +97,11 @@ export default function Deposit() {
                         </p>
                     )}
 
-                    <button type="submit" disabled={loading} className="btn-deposit">
-                        {loading ? "กำลังฝาก..." : "ยืนยันฝากเงิน"}
-                    </button>
-                    <button
-                        type="button"
-                        className="btn-back"
-                        onClick={() => navigate("/account")}
-                    >
-                        กลับหน้าบัญชี
+                    <button type="submit" disabled={loading} className="btn-primary">
+                        {loading ? "Processing..." : "Confirm deposit"}
                     </button>
                 </form>
-            </div>
+            </section>
         </main>
     );
 }
