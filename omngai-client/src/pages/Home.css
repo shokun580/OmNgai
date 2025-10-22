@@ -6,5 +6,38 @@
 }
 
 .head {
-    font: size 64px;;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 3px;
+
+  /* ทำ Gradient สี */
+  background: linear-gradient(90deg, #ffcc33, #ff6699, #33ccff);
+  background-size: 300%;
+  
+  /* ✅ ใส่ทั้ง 2 แบบ */
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  /* ทำให้ตัวหนังสือโปร่งใสแล้วโชว์ gradient */
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  /* เงาและแสง */
+  text-shadow:
+    0 0 10px rgba(255, 23, 23, 0.8),
+    0 0 20px rgba(255, 70, 131, 0.8),
+    0 0 30px rgba(105, 218, 255, 0.8);
+
+  /* Animation เคลื่อนไหว */
+  animation: gradientMove 2s ease infinite;
+}
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
