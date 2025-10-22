@@ -3,14 +3,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Account.css";
 
-/* helper: แปลง string/decimal -> number */
 const toNum = (v: any): number | undefined => {
     if (v === null || v === undefined) return undefined;
     const n = Number(v);
     return Number.isFinite(n) ? n : undefined;
 };
 
-/* types (ยืดหยุ่นกับชื่อฟิลด์) */
 type Account = {
     ac_no?: string;
     account_no?: string;
@@ -40,7 +38,6 @@ export default function Account() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    /* axios + auth header */
     const api = useMemo(() => {
         const i = axios.create({ baseURL: API_URL, withCredentials: true });
         i.interceptors.request.use((cfg) => {
@@ -57,12 +54,14 @@ export default function Account() {
             navigate("/");
             return;
         }
+
         const uid = localStorage.getItem("user_id");
         if (!uid) {
             setError("ไม่พบ user_id กรุณาเข้าสู่ระบบใหม่");
             setLoading(false);
             return;
         }
+
         const userId = Number(uid);
         if (!Number.isFinite(userId) || userId <= 0) {
             setError("user_id ไม่ถูกต้อง");
@@ -73,11 +72,9 @@ export default function Account() {
         (async () => {
             try {
                 setLoading(true);
-                setError(null);
-
                 const [accRes, tranRes] = await Promise.all([
-                    api.get<any>(`/accounts/${userId}`),
-                    api.get<any>(`/transactions/${userId}`),
+                    api.get(`/accounts/${userId}`),
+                    api.get(`/transactions/${userId}`),
                 ]);
 
                 const accounts: Account[] = Array.isArray(accRes.data)
@@ -93,12 +90,11 @@ export default function Account() {
                 setAccount(accounts[0] ?? null);
                 setTransactions(txs);
             } catch (err: any) {
-                const msg =
+                setError(
                     err.response?.data?.error ||
                     err.response?.data?.message ||
-                    err.message ||
-                    "ไม่สามารถดึงข้อมูลได้";
-                setError(msg);
+                    "ไม่สามารถดึงข้อมูลได้"
+                );
             } finally {
                 setLoading(false);
             }
@@ -108,41 +104,40 @@ export default function Account() {
     if (loading) return <div className="screen-center muted">กำลังโหลดข้อมูล…</div>;
     if (error) return <div className="screen-center alert-error">{error}</div>;
 
-    const acctNumber = account?.ac_no ?? account?.account_number ?? account?.account_no ?? "—";
+    const acctNumber =
+        account?.ac_no ?? account?.account_number ?? account?.account_no ?? "—";
     const balance = toNum(account?.ac_balance ?? account?.balance);
 
     return (
-        <main className="mb-page">
-            {/* ======= Top Account Card ======= */}
+        <main className="account-page">
+            {/* 💳 Balance Card */}
             <section className="balance-card">
-                <div className="balance-row">
+                <div className="balance-card-content">
+                    <div className="balance-header">
+                        <span className="balance-logo">OmNgai</span>
+                    </div>
+
                     <div className="balance-amount">
                         {typeof balance === "number"
-                            ? balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                            ? `฿${balance.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                            })}`
                             : "—"}
                     </div>
-                    {/* จุดเมนูเล็ก ๆ ไว้สวย ๆ */}
-                </div>
 
-
-                <div className="balance-info">
-                    <div>
-                        <div className="label">Number</div>
+                    <div className="balance-info">
+                        <div className="label">Account Number</div>
                         <div className="value mono">
                             {acctNumber !== "—" ? `•••• ${acctNumber.slice(-4)}` : "—"}
                         </div>
                     </div>
-                    
                 </div>
+                <div className="highlight"></div>
             </section>
 
-            {/* ======= Transactions List ======= */}
-            <section className="tx-section">
-                <div className="tx-header">
-                    <h2>Transactions</h2>
-                    {/* จะมีปุ่ม See All ทีหลังก็ใส่ได้ */}
-                </div>
-
+            {/* 🧾 Scrollable Transaction List */}
+            <section className="tx-scroll-area">
+                <h2 className="tx-section-title">Transactions</h2>
                 {transactions.length === 0 ? (
                     <div className="muted">ยังไม่มีธุรกรรม</div>
                 ) : (
@@ -154,30 +149,29 @@ export default function Account() {
 
                             return (
                                 <article className="tx-card" key={i}>
-                                    <div className={`tx-icon ${isWithdraw ? "icon-out" : "icon-in"}`}>
-                                        {/* ไอคอนเล็ก ๆ ด้วย SVG */}
-                                        {isWithdraw ? (
-                                            <svg viewBox="0 0 24 24" width="18" height="18">
-                                                <path d="M3 12h14m0 0-4-4m4 4-4 4" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                                            </svg>
-                                        ) : (
-                                            <svg viewBox="0 0 24 24" width="18" height="18">
-                                                <path d="M21 12H7m0 0 4 4m-4-4 4-4" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                                            </svg>
-                                        )}
+                                    <div
+                                        className={`tx-icon ${isWithdraw ? "icon-out" : "icon-in"
+                                            }`}
+                                    >
+                                        {isWithdraw ? "⬇" : "⬆"}
                                     </div>
 
                                     <div className="tx-main">
-                                        <div className="tx-title">{isWithdraw ? "Withdraw" : "Deposit"}</div>
-                                        <div className="tx-note">{note || <span className="muted">— ไม่มีหมายเหตุ —</span>}</div>
+                                        <div className="tx-title">
+                                            {isWithdraw ? "Withdraw" : "Deposit"}
+                                        </div>
+                                        <div className="tx-note">
+                                            {note || <span className="muted">— ไม่มีหมายเหตุ —</span>}
+                                        </div>
                                     </div>
 
-                                    <div className={`tx-amount ${isWithdraw ? "out" : "in"} mono`}>
+                                    <div
+                                        className={`tx-amount ${isWithdraw ? "out" : "in"} mono`}
+                                    >
                                         {typeof amt === "number"
                                             ? (isWithdraw ? "" : "+") +
                                             Math.abs(amt).toLocaleString(undefined, {
                                                 minimumFractionDigits: 2,
-                                                maximumFractionDigits: 2,
                                             })
                                             : "—"}
                                     </div>
