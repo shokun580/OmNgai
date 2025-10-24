@@ -8,8 +8,8 @@
     font-family: "Inter", "Kanit", system-ui, sans-serif;
     overflow: hidden;
     background:
-    radial-gradient(1000px 200px at 50% -40px, rgba(14, 165, 233, .18), transparent 70%),
-    linear-gradient(180deg, #f8fbff 0%, #ffffff 60%);
+        radial-gradient(1000px 200px at 50% -40px, rgba(14, 165, 233, .18), transparent 70%),
+        linear-gradient(180deg, #f8fbff 0%, #ffffff 60%);
 }
 
 /* ===== Balance Card ===== */
@@ -264,4 +264,29 @@
     .tx-amount {
         font-size: 13px;
     }
+}
+
+.tx-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 8px;
+    margin-bottom: 10px;
+}
+
+.sort-btn {
+    background: #e0f2fe;
+    border: 1px solid #bae6fd;
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-weight: 600;
+    color: #0369a1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sort-btn:hover {
+    background: #bae6fd;
+    color: #0c4a6e;
+    transform: translateY(-1px);
 }

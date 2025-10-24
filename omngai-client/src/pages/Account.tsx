@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Account.css";
+import { HiArrowDownCircle, HiArrowUpCircle } from "react-icons/hi2";
 
 const toNum = (v: any): number | undefined => {
     if (v === null || v === undefined) return undefined;
@@ -28,15 +29,15 @@ type Transaction = {
     [k: string]: any;
 };
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL || "http://10.80.94.5:3000";
 
 export default function Account() {
     const navigate = useNavigate();
-
     const [account, setAccount] = useState<Account | null>(null);
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [sortNewestFirst, setSortNewestFirst] = useState(true); // ✅ toggle เรียงลำดับ
 
     const api = useMemo(() => {
         const i = axios.create({ baseURL: API_URL, withCredentials: true });
@@ -108,6 +109,13 @@ export default function Account() {
         account?.ac_no ?? account?.account_number ?? account?.account_no ?? "—";
     const balance = toNum(account?.ac_balance ?? account?.balance);
 
+    // ✅ ฟังก์ชันเรียงลำดับตาม toggle
+    const sortedTx = [...transactions].sort((a, b) => {
+        const timeA = new Date(a.created_at || a.date || 0).getTime();
+        const timeB = new Date(b.created_at || b.date || 0).getTime();
+        return sortNewestFirst ? timeB - timeA : timeA - timeB;
+    });
+
     return (
         <main className="account-page">
             {/* 💳 Balance Card */}
@@ -137,12 +145,21 @@ export default function Account() {
 
             {/* 🧾 Scrollable Transaction List */}
             <section className="tx-scroll-area">
-                <h2 className="tx-section-title">Transactions</h2>
+                <div className="tx-section-header">
+                    <h2 className="tx-section-title">Transactions</h2>
+                    <button
+                        className="sort-btn"
+                        onClick={() => setSortNewestFirst(!sortNewestFirst)}
+                    >
+                        {sortNewestFirst ? "⬇ ใหม่อยู่บนสุด" : "⬆ เก่าอยู่บนสุด"}
+                    </button>
+                </div>
+
                 {transactions.length === 0 ? (
                     <div className="muted">ยังไม่มีธุรกรรม</div>
                 ) : (
                     <div className="tx-list">
-                        {transactions.map((t, i) => {
+                        {sortedTx.map((t, i) => {
                             const amt = toNum(t.ts_amount ?? t.amount);
                             const note = t.ts_note ?? t.note ?? "";
                             const isWithdraw = typeof amt === "number" && amt < 0;
@@ -150,10 +167,13 @@ export default function Account() {
                             return (
                                 <article className="tx-card" key={i}>
                                     <div
-                                        className={`tx-icon ${isWithdraw ? "icon-out" : "icon-in"
-                                            }`}
+                                        className={`tx-icon ${isWithdraw ? "icon-out" : "icon-in"}`}
                                     >
-                                        {isWithdraw ? "⬇" : "⬆"}
+                                        {isWithdraw ? (
+                                            <HiArrowDownCircle size={28} color="#ef4444" />
+                                        ) : (
+                                            <HiArrowUpCircle size={28} color="#22c55e" />
+                                        )}
                                     </div>
 
                                     <div className="tx-main">
@@ -165,9 +185,7 @@ export default function Account() {
                                         </div>
                                     </div>
 
-                                    <div
-                                        className={`tx-amount ${isWithdraw ? "out" : "in"} mono`}
-                                    >
+                                    <div className={`tx-amount ${isWithdraw ? "out" : "in"} mono`}>
                                         {typeof amt === "number"
                                             ? (isWithdraw ? "" : "+") +
                                             Math.abs(amt).toLocaleString(undefined, {

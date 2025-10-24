@@ -240,3 +240,12 @@
     display: flex;
   }
 }
+
+.logo-link {
+  text-decoration: none;
+  /* เอาเส้นใต้ของ <Link> ออก */
+  color: inherit;
+  /* ให้สีตัวอักษรเหมือนเดิม ไม่กลายเป็นสีน้ำเงิน */
+  display: inline-block;
+  /* ป้องกัน hover แปลกๆ */
+}

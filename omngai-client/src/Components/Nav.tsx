@@ -8,7 +8,7 @@ import Logo from "../assets/Logo.png";
 export default function Nav() {
   const navigate = useNavigate();
   const location = useLocation();
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+  const API_URL = import.meta.env.VITE_API_URL || "http://10.80.94.5:3000";
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = async () => {
@@ -30,11 +30,12 @@ export default function Nav() {
       {/* ===== Top Navbar ===== */}
       <header className="navbar-container">
         <nav className="navbar">
-          <div className="nav-left">
-            <img src={Logo} alt="OmnGai" className="nav-logo" />
-            <h2 className="nav-title">OmNgai</h2>
-          </div>
-
+          <Link to="/home" className="logo-link">
+            <div className="nav-left">
+              <img src={Logo} alt="OmnGai" className="nav-logo" />
+              <h2 className="nav-title">OmNgai</h2>
+            </div>
+          </Link>
           <ul className="nav-links">
             <li><Link to="/home" className="nav-link">Home</Link></li>
             <li><Link to="/account" className="nav-link">Account</Link></li>

@@ -23,7 +23,7 @@ export default function Home() {
     <main className="home-page">
       {/* hero ribbon */}
       <div className="home-hero">
-        <div className="hero-badge">OmnGai</div>
+        <div className="hero-badge">OmNgai</div>
         <h1 className="hero-title">🏠 Home</h1>
         <p className="hero-sub">ยินดีต้อนรับเข้าสู่ระบบออมง่าย 💙</p>
       </div>
@@ -34,10 +34,6 @@ export default function Home() {
           <div className="head-left">
             <h2 className="card-title">สวัสดีคุณผู้ใช้</h2>
             <span className="muted">จัดการบัญชีและทำธุรกรรมได้จากที่นี่</span>
-          </div>
-
-          <div className="id-badge">
-            {loading ? "กำลังโหลด..." : userId ? `User ID: ${userId}` : "ไม่พบบัญชี"}
           </div>
         </div>
 
