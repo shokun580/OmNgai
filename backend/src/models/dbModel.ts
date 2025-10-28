@@ -37,7 +37,8 @@ export async function getTransactionByUser(userId: number) {
     FROM transactions AS t
     JOIN accounts AS a ON t.ts_ac_id = a.ac_id
     JOIN users AS u ON a.ac_us_id = u.us_id
-    WHERE u.us_id = ?`,
+    WHERE u.us_id = ?
+    ORDER BY t.ts_id DESC;`,
     [userId]
   );
   return rows;
@@ -84,9 +85,9 @@ export async function userDetail(): Promise<Account[]> {
   return rows as Account[];
 }
 
-export async function useridDetail(userId : number): Promise<Account[]> {
+export async function useridDetail(userId: number): Promise<Account[]> {
   const [rows] = await db.query("SELECT *  FROM accounts WHERE ac_us_id = ?", [userId]);
   return rows as Account[];
 }
 
-export default {  addNewUser , addNewUser1 ,getAccountsByUser ,addNewTransaction, updateBalance , userDetail , useridDetail , getTransactionByUser};
+export default { addNewUser, addNewUser1, getAccountsByUser, addNewTransaction, updateBalance, userDetail, useridDetail, getTransactionByUser };

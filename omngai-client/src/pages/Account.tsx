@@ -147,12 +147,6 @@ export default function Account() {
             <section className="tx-scroll-area">
                 <div className="tx-section-header">
                     <h2 className="tx-section-title">Transactions</h2>
-                    <button
-                        className="sort-btn"
-                        onClick={() => setSortNewestFirst(!sortNewestFirst)}
-                    >
-                        {sortNewestFirst ? "⬇ ใหม่อยู่บนสุด" : "⬆ เก่าอยู่บนสุด"}
-                    </button>
                 </div>
 
                 {transactions.length === 0 ? (

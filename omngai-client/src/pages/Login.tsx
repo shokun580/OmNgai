@@ -62,7 +62,7 @@ function Login() {
           <div className="d-flex justify-content-center align-item-center">
             <img src={Logo} alt="OmnGai" className="logo" />
           </div>
-          <h2 className="text-center mb-2">Welcome To OmnGai</h2>
+          <h2 className="text-center mb-2">Welcome To OmNgai</h2>
 
           <form className="form-area p-4" onSubmit={handleLogin}>
 
