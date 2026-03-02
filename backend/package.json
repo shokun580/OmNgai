@@ -13,7 +13,7 @@
   ],
   "author": "Aphinan Supapol <66160107@go.buu.ac.th>",
   "license": "ISC",
-  "description": "Express\r npm install\r npm init -y\r npm install express\r npm install -D typescript @types/node @types/express ts-node\r tsc --init\r npm install dotenv\r npm install mysql2\r npm install -D @type/mysql2\r npm install -D tsx\r npm install multer\r npm install -D @types/multer\r npm install jsonwebtoken\r ืnpm install -D @types/jsonwebtoken",
+  "description": "Express\r npm install\r npm init -y\r npm install express\r npm install -D typescript @types/node @types/express ts-node\r tsc --init\r npm install dotenv\r npm install mysql2\r npm install -D @type/mysql2\r npm install -D tsx\r npm install multer\r npm install -D @types/multer\r npm install jsonwebtoken\r npm install -D @types/jsonwebtoken",
   "dependencies": {
     "axios": "^1.12.2",
     "cors": "^2.8.5",
