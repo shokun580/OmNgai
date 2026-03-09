@@ -53,5 +53,5 @@ app.use(defaultRouter);
 app.use(transectionRouter);
 
 app.listen(PORT, HOST, () => {
-  console.log(`  API running at http://${HOST}:${PORT}`);
+  console.log(` ✅ API running at http://${HOST}:${PORT}`);
 });

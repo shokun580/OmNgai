@@ -54,7 +54,8 @@ async function addNewTransaction(
     `INSERT INTO transactions (ts_ac_id, ts_amount, ts_note)
      SELECT ac_id, $1, $2
      FROM accounts
-     WHERE ac_us_id = $3`,
+     WHERE ac_us_id = $3
+     RETURNING ts_id`,
     [amount, note || null, userId]
   );
 
