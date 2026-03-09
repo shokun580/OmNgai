@@ -1,4 +1,4 @@
-import db from "./conection.ts";
+import db from "./conection.js";
 
 // เพิ่ม user ใหม่
 function addNewUser(username: string, password: string) {

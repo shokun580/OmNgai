@@ -2,7 +2,7 @@ import { Router, type Request, type Response } from "express";
 const router = Router();
 
 import { upload } from "../utils/upload";
-import dbModel, { userDetail, useridDetail } from "../models/dbModel.ts";
+import dbModel, { userDetail, useridDetail } from "../models/dbModel.js";
 
 // เอามาเพิ่ม user เฉย ๆ
 router.post("/user", async (req: Request, res: Response): Promise<void> => {

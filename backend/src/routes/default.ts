@@ -1,8 +1,8 @@
 import { Router, type Request, type Response } from "express";
-import { upload } from "../utils/upload.ts";
-import { generateToken, checkToken } from "../utils/token.ts";
-import { verifyToken } from "../middlewares/auth.ts";
-import db from "../models/conection.ts";
+import { upload } from "../utils/upload.js";
+import { generateToken, checkToken } from "../utils/token.js";
+import { verifyToken } from "../middlewares/auth.js";
+import db from "../models/conection.js";
 
 const router = Router();
 
