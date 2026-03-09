@@ -1,40 +1,40 @@
 import { Router, type Request, type Response } from "express";
 import { upload } from "../utils/upload";
-import mysql from "mysql2/promise";
 import { generateToken, checkToken } from "../utils/token";
 import { verifyToken } from "../middlewares/auth";
+import db from "../models/conection";
 
-
-// const router = express.Router();
 const router = Router();
-const pool = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "", // ถ้ามี password ให้ใส่
-    database: "my_oom",
-});
 
+/*
+|--------------------------------------------------------------------------
+| LOGIN
+|--------------------------------------------------------------------------
+*/
 router.post("/login", async (req: Request, res: Response) => {
     try {
         const { username, password } = req.body;
 
-        // 🔹 ตรวจสอบ username/password ใน DB
-        const [rows]: any = await pool.query(
-            "SELECT * FROM users WHERE us_username = ? AND us_password = ?",
+        const result = await db.query(
+            "SELECT * FROM users WHERE us_username = $1 AND us_password = $2",
             [username, password]
         );
 
+        const rows = result.rows;
+
         if (rows.length === 0) {
-            return res.status(401).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" });
+            return res.status(401).json({
+                message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
+            });
         }
 
         const user = rows[0];
+
         const token = generateToken({
             id: user.us_id,
             username: user.us_username,
         });
 
-        // ✅ ส่งกลับ token และ user
         return res.json({
             status: "ok",
             token,
@@ -45,19 +45,38 @@ router.post("/login", async (req: Request, res: Response) => {
         });
     } catch (err) {
         console.error("Login error:", err);
-        res.status(500).json({ message: "เกิดข้อผิดพลาดในระบบ" });
+        res.status(500).json({
+            message: "เกิดข้อผิดพลาดในระบบ",
+        });
     }
 });
 
-
-router.get('/test-token', verifyToken, (req: Request, res: Response) => {
+/*
+|--------------------------------------------------------------------------
+| TOKEN TEST
+|--------------------------------------------------------------------------
+*/
+router.get("/test-token", verifyToken, (req: Request, res: Response) => {
     const authHeader = req.headers["authorization"];
-    if (!authHeader) return res.status(401).json({ message: "No token provided" });
-    let token = authHeader.split(" ")[1] || ""; // Expect: "Bearer <token>"
+
+    if (!authHeader) {
+        return res.status(401).json({
+            message: "No token provided",
+        });
+    }
+
+    const token = authHeader.split(" ")[1] || "";
+
     if (checkToken(token)) {
-        res.json({ status: 'ok', message: "Token is valid" });
+        res.json({
+            status: "ok",
+            message: "Token is valid",
+        });
     } else {
-        res.json({ status: 'error', message: "Token is invalid" });
+        res.json({
+            status: "error",
+            message: "Token is invalid",
+        });
     }
 });
 

@@ -1,14 +1,9 @@
-import mysql, {PoolOptions} from "mysql2/promise";
+import pkg from "pg";
 
-const config:PoolOptions = {
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'my_oom',
-    port: Number(process.env.DB_PORT || 3306)
-}
+const { Pool } = pkg;
 
-const db = mysql.createPool(config);
-
+const db = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
 
 export default db;

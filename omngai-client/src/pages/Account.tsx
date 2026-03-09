@@ -37,7 +37,7 @@ export default function Account() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [sortNewestFirst, setSortNewestFirst] = useState(true); // ✅ toggle เรียงลำดับ
+    const [sortNewestFirst, setSortNewestFirst] = useState(true); //   toggle เรียงลำดับ
 
     const api = useMemo(() => {
         const i = axios.create({ baseURL: API_URL, withCredentials: true });
@@ -109,7 +109,7 @@ export default function Account() {
         account?.ac_no ?? account?.account_number ?? account?.account_no ?? "—";
     const balance = toNum(account?.ac_balance ?? account?.balance);
 
-    // ✅ ฟังก์ชันเรียงลำดับตาม toggle
+    //   ฟังก์ชันเรียงลำดับตาม toggle
     const sortedTx = [...transactions].sort((a, b) => {
         const timeA = new Date(a.created_at || a.date || 0).getTime();
         const timeB = new Date(b.created_at || b.date || 0).getTime();
