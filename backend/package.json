@@ -2,7 +2,7 @@
   "name": "nodejs-express",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "dev": "tsx watch main.ts",
     "build": "tsc",
