@@ -47,8 +47,8 @@ app.options(/.*/, cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-import defaultRouter from "./src/routes/default";
-import transectionRouter from "./src/routes/transection";
+import defaultRouter from "./src/routes/default.js";
+import transectionRouter from "./src/routes/transection.js";
 app.use(defaultRouter);
 app.use(transectionRouter);
 
